@@ -1,1 +1,2 @@
 # RayTest
+分散並列処理が可能なPythonライブラリRayのテスト実装
