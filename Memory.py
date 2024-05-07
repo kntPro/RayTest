@@ -13,7 +13,7 @@ class Memory:
         self.matmem.append(mat)
         self.vecmem.append(vec)
 
-    def size(self) -> int:
+    def size(self) -> tuple[int,int]:
         return len(self.matmem), len(self.vecmem)
 
     def pop(self) -> tuple[Optional[np.ndarray], Optional[np.ndarray]]:
@@ -24,10 +24,14 @@ class Memory:
 
     def sample(self):
         matmemlen, vecmemlen = self.size()
-        if not(matmemlen or vecmemlen):
+        if matmemlen==0 or vecmemlen==0:
             return (None,None)
         else:
-            return random.sample(self.matmem, 1), random.sample(self.vecmem, 1)
+            return *random.sample(self.matmem, 1), *random.sample(self.vecmem, 1)
 
-    
+@ray.remote
+class RayMemory(Memory):
+    def __init__(self, memlen: int | float) -> None:
+        super().__init__(memlen)
+
     
