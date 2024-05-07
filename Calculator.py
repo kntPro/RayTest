@@ -7,7 +7,7 @@ import torch
 
 CALCULATOR_NUM=3
 
-@ray.remote
+@ray.remote(num_gpus=1/CALCULATOR_NUM)
 class Calculator:
     def __init__(self, memory:Memory, start:int, end:int) -> None:
         self.start_calc_num = start
@@ -25,8 +25,8 @@ class Calculator:
                 assert mat or vec, f"mat was {mat},   vec was {vec}"
             except AssertionError as err:
                 print(f"Calculator have not been able to sample from memory \n {err}")
-            #torch.matmul(torch.from_numpy(mat).to(device=self.device),torch.from_numpy(vec).to(device=self.device))
-            np.matmul(mat,vec)
+            torch.matmul(torch.from_numpy(mat).to(device=self.device),torch.from_numpy(vec).to(device=self.device))
+           #np.matmul(mat,vec)
             self.calc_count+=1
         return True
 

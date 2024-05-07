@@ -5,7 +5,7 @@ from Calculator import Calculator, CALCULATOR_NUM
 import time
 from copy import deepcopy
 
-CALC_NUM = int(2**8)
+CALC_NUM = int(2**7)
 SHAPE = 1024
 MEMORY_SIZE = 1024
 ray.init()
