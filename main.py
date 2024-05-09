@@ -20,7 +20,7 @@ def main():
 
 @ray.remote
 def mem_loop(memory:Memory):
-    for _ in range(args.calc_num*2):
+    for _ in tqdm(range(args.calc_num*2)):
         mat = np.random.randn(args.shape,args.shape)
         vec = np.random.randn(args.shape)
         ray.get(memory.add.remote(mat, vec))
